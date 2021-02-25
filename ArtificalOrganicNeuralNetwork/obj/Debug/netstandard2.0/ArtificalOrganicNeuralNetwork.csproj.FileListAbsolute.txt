@@ -1,0 +1,9 @@
+C:\Users\domin\source\repos\ArtificalOrganicNeuralNetwork\ArtificalOrganicNeuralNetwork\bin\Debug\netstandard2.0\ArtificalOrganicNeuralNetwork.deps.json
+C:\Users\domin\source\repos\ArtificalOrganicNeuralNetwork\ArtificalOrganicNeuralNetwork\bin\Debug\netstandard2.0\ArtificalOrganicNeuralNetwork.dll
+C:\Users\domin\source\repos\ArtificalOrganicNeuralNetwork\ArtificalOrganicNeuralNetwork\bin\Debug\netstandard2.0\ArtificalOrganicNeuralNetwork.pdb
+C:\Users\domin\source\repos\ArtificalOrganicNeuralNetwork\ArtificalOrganicNeuralNetwork\obj\Debug\netstandard2.0\ArtificalOrganicNeuralNetwork.csprojAssemblyReference.cache
+C:\Users\domin\source\repos\ArtificalOrganicNeuralNetwork\ArtificalOrganicNeuralNetwork\obj\Debug\netstandard2.0\ArtificalOrganicNeuralNetwork.AssemblyInfoInputs.cache
+C:\Users\domin\source\repos\ArtificalOrganicNeuralNetwork\ArtificalOrganicNeuralNetwork\obj\Debug\netstandard2.0\ArtificalOrganicNeuralNetwork.AssemblyInfo.cs
+C:\Users\domin\source\repos\ArtificalOrganicNeuralNetwork\ArtificalOrganicNeuralNetwork\obj\Debug\netstandard2.0\ArtificalOrganicNeuralNetwork.csproj.CoreCompileInputs.cache
+C:\Users\domin\source\repos\ArtificalOrganicNeuralNetwork\ArtificalOrganicNeuralNetwork\obj\Debug\netstandard2.0\ArtificalOrganicNeuralNetwork.dll
+C:\Users\domin\source\repos\ArtificalOrganicNeuralNetwork\ArtificalOrganicNeuralNetwork\obj\Debug\netstandard2.0\ArtificalOrganicNeuralNetwork.pdb
