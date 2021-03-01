@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AONN.NeuralNetwork.Neurons
+namespace AONN.NN.Neurons
 {
     public abstract class AbstractNeuron : INeuron
     {
-        protected AbstractNeuron(NeuralNetworkConfig config)
+        protected AbstractNeuron(string id, NeuralNetworkConfig config)
         {
+            Id = id;
             Config = config;
         }
 
@@ -16,11 +17,13 @@ namespace AONN.NeuralNetwork.Neurons
 
         public double Potential { get; set; }
 
+        public string Id { get; protected set; }
+
         private double _tempPotential = 0;
 
         public abstract void Tick();
 
-        public void ReceivePotential(double potential)
+        public virtual void ReceivePotential(double potential)
         {
             _tempPotential += potential;
         }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AONN.NeuralNetwork
+namespace AONN.NN
 {
     public class NeuroTransmitter : IEquatable<NeuroTransmitter>
     {

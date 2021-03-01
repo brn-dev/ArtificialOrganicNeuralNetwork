@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "LVAEc+ESK4Rdy7oIHmYkZsZf0Zom7jxlHlhbeeLqY3jF5+nxQOaD5U/dErxrNAmxf+GAcbREDIi50MoqyAtBkQ==",
+  "dgSpecHash": "KgVRVsQSwaUngtTmesMEU7YQj2Ksm0BacJENwZhP+gcjMoiti4XmI8ENRPm61skiwPFT8KLr7ozpYHvcdDmZAg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\domin\\source\\repos\\ArtificalOrganicNeuralNetwork\\ArtificalOrganicNeuralNetwork\\ArtificalOrganicNeuralNetwork.csproj",
+  "projectFilePath": "C:\\Users\\domin\\Git\\ArtificialOrganicNeuralNetwork\\ArtificalOrganicNeuralNetwork\\ArtificalOrganicNeuralNetwork.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\domin\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\domin\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"

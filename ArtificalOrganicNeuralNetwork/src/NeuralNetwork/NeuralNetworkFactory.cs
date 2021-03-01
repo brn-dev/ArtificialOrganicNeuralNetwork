@@ -1,22 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AONN.NeuralNetwork.Neurons;
+using AONN.NN.Neurons;
 
-namespace AONN.NeuralNetwork
+namespace AONN.NN
 {
     public class NeuralNetworkFactory
     {
 
         public static NeuralNetwork CreateNeuralNetwork(NeuralNetworkCreationConfig config)
         {
-            var neuroTransmitterSet = new NeuroTransmitterSet(config.Rand, config.NeuroTransmitterCount);
+            var neuroTransmitterSet = new NeuroTransmitterSet(config.NeuralNetworkConfig.NeuroTransmitterCount);
             var computingNeurons = new ComputingNeuron[config.ComputingNeuronCount];
 
 
             for (int i = 0; i < config.ComputingNeuronCount; i++)
             {
-                computingNeurons[i] = new ComputingNeuron(config);
+                computingNeurons[i] = new ComputingNeuron($"C{i}", config.NeuralNetworkConfig);
             }
 
             var receivingNeurons =
@@ -25,10 +25,11 @@ namespace AONN.NeuralNetwork
             for (int i = 0; i < config.ComputingNeuronCount; i++)
             {
                 CreateRandomSynapses(
-                    config.Rand, 
+                    config.CreationRand, 
                     neuroTransmitterSet, 
                     computingNeurons[i], 
-                    receivingNeurons, 
+                    receivingNeurons,
+                    config.InitialSynapseStrength,
                     config.SynapseCountMean,
                     config.SynapseCountStdDev
                 );
@@ -37,23 +38,24 @@ namespace AONN.NeuralNetwork
             for (int i = 0; i < config.InputNeurons.Count(); i++)
             {
                 CreateRandomSynapses(
-                    config.Rand, 
+                    config.CreationRand, 
                     neuroTransmitterSet, 
                     config.InputNeurons[i], 
                     receivingNeurons, 
+                    config.InitialSynapseStrength,
                     config.SynapseCountMean,
                     config.SynapseCountStdDev
                 );
             }
 
 
-            return new NeuralNetwork(config, computingNeurons, config.InputNeurons, config.OutputNeurons);
+            return new NeuralNetwork(config.NeuralNetworkConfig, computingNeurons, config.InputNeurons, config.OutputNeurons);
         }
 
         private static void CreateRandomSynapses(
             Random rand, NeuroTransmitterSet neuroTransmitterSet,
             INeuron neuron, IReceivingNeuron[] receivingNeurons, 
-            double mean, double stdDev
+            double strength, double mean, double stdDev
         )
         {
             var count = Math.Round(RandomGaussian(rand, mean, stdDev));
@@ -66,7 +68,7 @@ namespace AONN.NeuralNetwork
                 var sourceAffinities = CreateRandomTransmitterAffinities(rand, neuroTransmitterSet);
                 var targetAffinities = CreateRandomTransmitterAffinities(rand, neuroTransmitterSet);
                 var synapse = new Synapse(
-                    1, 
+                    strength, 
                     neuron, receivingNeuron, 
                     sourceAffinities, targetAffinities,
                     neuroTransmitterSet

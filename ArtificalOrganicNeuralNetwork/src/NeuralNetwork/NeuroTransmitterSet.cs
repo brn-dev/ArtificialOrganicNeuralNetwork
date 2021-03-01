@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Linq;
 
-namespace AONN.NeuralNetwork
+namespace AONN.NN
 {
     public class NeuroTransmitterSet
     {
 
         private readonly int _transmitterCount;
-        private readonly Random _rand;
 
-        public NeuroTransmitterSet(Random rand, int transmitterCount)
+        public NeuroTransmitterSet(int transmitterCount)
         {
-            _rand = rand;
             _transmitterCount = transmitterCount;
             GenerateTransmitters();
         }

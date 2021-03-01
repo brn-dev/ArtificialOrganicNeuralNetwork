@@ -1,7 +1,7 @@
-﻿using AONN.NeuralNetwork.Neurons;
+﻿using AONN.NN.Neurons;
 using System.Collections.Generic;
 
-namespace AONN.NeuralNetwork
+namespace AONN.NN
 {
     public class Synapse
     {

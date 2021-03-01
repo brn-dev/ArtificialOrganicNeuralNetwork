@@ -1,8 +1,8 @@
-﻿using AONN.NeuralNetwork.Neurons;
+﻿using AONN.NN.Neurons;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AONN.NeuralNetwork
+namespace AONN.NN
 {
     public class NeuralNetwork
     {
@@ -27,7 +27,7 @@ namespace AONN.NeuralNetwork
             InputNeurons = inputNeurons;
             OutputNeurons = outputNeurons;
 
-            AllNeurons = computingNeurons.Cast<INeuron>().Concat(computingNeurons.Cast<INeuron>()).Concat(outputNeurons.Cast<INeuron>()).ToArray();
+            AllNeurons = computingNeurons.Cast<INeuron>().Concat(inputNeurons.Cast<INeuron>()).Concat(outputNeurons.Cast<INeuron>()).ToArray();
         }
 
         public void Tick()
@@ -36,10 +36,6 @@ namespace AONN.NeuralNetwork
             {
                 AllNeurons[i].Tick();
             }
-        }
-
-        public void PostTick()
-        {
             for (int i = 0; i < AllNeurons.Length; i++)
             {
                 AllNeurons[i].PostTick();

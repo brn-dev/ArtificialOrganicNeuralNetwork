@@ -1,4 +1,4 @@
-﻿namespace AONN.NeuralNetwork.Neurons
+﻿namespace AONN.NN.Neurons
 {
     public interface IReceivingNeuron
     {

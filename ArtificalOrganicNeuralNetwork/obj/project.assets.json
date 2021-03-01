@@ -185,11 +185,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\domin\\source\\repos\\ArtificalOrganicNeuralNetwork\\ArtificalOrganicNeuralNetwork\\ArtificalOrganicNeuralNetwork.csproj",
+      "projectUniqueName": "C:\\Users\\domin\\Git\\ArtificialOrganicNeuralNetwork\\ArtificalOrganicNeuralNetwork\\ArtificalOrganicNeuralNetwork.csproj",
       "projectName": "ArtificalOrganicNeuralNetwork",
-      "projectPath": "C:\\Users\\domin\\source\\repos\\ArtificalOrganicNeuralNetwork\\ArtificalOrganicNeuralNetwork\\ArtificalOrganicNeuralNetwork.csproj",
+      "projectPath": "C:\\Users\\domin\\Git\\ArtificialOrganicNeuralNetwork\\ArtificalOrganicNeuralNetwork\\ArtificalOrganicNeuralNetwork.csproj",
       "packagesPath": "C:\\Users\\domin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\domin\\source\\repos\\ArtificalOrganicNeuralNetwork\\ArtificalOrganicNeuralNetwork\\obj\\",
+      "outputPath": "C:\\Users\\domin\\Git\\ArtificialOrganicNeuralNetwork\\ArtificalOrganicNeuralNetwork\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\domin\\AppData\\Roaming\\NuGet\\NuGet.Config",

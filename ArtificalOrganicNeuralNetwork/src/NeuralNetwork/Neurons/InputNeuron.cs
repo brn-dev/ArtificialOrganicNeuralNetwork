@@ -1,10 +1,10 @@
 ﻿using System;
 
-namespace AONN.NeuralNetwork.Neurons
+namespace AONN.NN.Neurons
 {
     public class InputNeuron : AbstractNeuron
     {
-        public InputNeuron(NeuralNetworkConfig config, Action<InputNeuron> beforeTick = null) : base(config)
+        public InputNeuron(string id, NeuralNetworkConfig config, Action<InputNeuron> beforeTick = null) : base(id, config)
         {
             BeforeTick = beforeTick;
         }
@@ -20,6 +20,6 @@ namespace AONN.NeuralNetwork.Neurons
             }
         }
 
-        
+
     }
 }

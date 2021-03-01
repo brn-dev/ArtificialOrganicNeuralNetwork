@@ -1,0 +1,16 @@
+C:\Users\domin\Git\ArtificialOrganicNeuralNetwork\ConsoleSimulation\bin\Debug\netcoreapp3.1\ConsoleSimulation.exe
+C:\Users\domin\Git\ArtificialOrganicNeuralNetwork\ConsoleSimulation\bin\Debug\netcoreapp3.1\ConsoleSimulation.deps.json
+C:\Users\domin\Git\ArtificialOrganicNeuralNetwork\ConsoleSimulation\bin\Debug\netcoreapp3.1\ConsoleSimulation.runtimeconfig.json
+C:\Users\domin\Git\ArtificialOrganicNeuralNetwork\ConsoleSimulation\bin\Debug\netcoreapp3.1\ConsoleSimulation.runtimeconfig.dev.json
+C:\Users\domin\Git\ArtificialOrganicNeuralNetwork\ConsoleSimulation\bin\Debug\netcoreapp3.1\ConsoleSimulation.dll
+C:\Users\domin\Git\ArtificialOrganicNeuralNetwork\ConsoleSimulation\bin\Debug\netcoreapp3.1\ConsoleSimulation.pdb
+C:\Users\domin\Git\ArtificialOrganicNeuralNetwork\ConsoleSimulation\bin\Debug\netcoreapp3.1\ArtificalOrganicNeuralNetwork.dll
+C:\Users\domin\Git\ArtificialOrganicNeuralNetwork\ConsoleSimulation\bin\Debug\netcoreapp3.1\ArtificalOrganicNeuralNetwork.pdb
+C:\Users\domin\Git\ArtificialOrganicNeuralNetwork\ConsoleSimulation\obj\Debug\netcoreapp3.1\ConsoleSimulation.csprojAssemblyReference.cache
+C:\Users\domin\Git\ArtificialOrganicNeuralNetwork\ConsoleSimulation\obj\Debug\netcoreapp3.1\ConsoleSimulation.AssemblyInfoInputs.cache
+C:\Users\domin\Git\ArtificialOrganicNeuralNetwork\ConsoleSimulation\obj\Debug\netcoreapp3.1\ConsoleSimulation.AssemblyInfo.cs
+C:\Users\domin\Git\ArtificialOrganicNeuralNetwork\ConsoleSimulation\obj\Debug\netcoreapp3.1\ConsoleSimulation.csproj.CoreCompileInputs.cache
+C:\Users\domin\Git\ArtificialOrganicNeuralNetwork\ConsoleSimulation\obj\Debug\netcoreapp3.1\ConsoleSimulation.csproj.CopyComplete
+C:\Users\domin\Git\ArtificialOrganicNeuralNetwork\ConsoleSimulation\obj\Debug\netcoreapp3.1\ConsoleSimulation.dll
+C:\Users\domin\Git\ArtificialOrganicNeuralNetwork\ConsoleSimulation\obj\Debug\netcoreapp3.1\ConsoleSimulation.pdb
+C:\Users\domin\Git\ArtificialOrganicNeuralNetwork\ConsoleSimulation\obj\Debug\netcoreapp3.1\ConsoleSimulation.genruntimeconfig.cache

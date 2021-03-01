@@ -1,11 +1,11 @@
 ﻿using System;
 
-namespace AONN.NeuralNetwork.Neurons
+namespace AONN.NN.Neurons
 {
     public class ComputingNeuron : AbstractNeuron, IReceivingNeuron
     {
 
-        public ComputingNeuron(NeuralNetworkConfig config) : base(config)
+        public ComputingNeuron(string id, NeuralNetworkConfig config) : base(id, config)
         {
         }
 

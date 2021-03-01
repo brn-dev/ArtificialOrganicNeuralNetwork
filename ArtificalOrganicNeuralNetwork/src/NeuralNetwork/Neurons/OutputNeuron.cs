@@ -1,10 +1,10 @@
 ﻿using System;
 
-namespace AONN.NeuralNetwork.Neurons
+namespace AONN.NN.Neurons
 {
     public class OutputNeuron : AbstractNeuron, IReceivingNeuron
     {
-        public OutputNeuron(NeuralNetworkConfig config, Action onFire) : base(config)
+        public OutputNeuron(string id, NeuralNetworkConfig config, Action onFire) : base(id, config)
         {
             OnFire = onFire;
         }
@@ -19,11 +19,9 @@ namespace AONN.NeuralNetwork.Neurons
             }
         }
 
-        protected override void Fire()
+        protected override void ReleaseNeuroTransmitters()
         {
             OnFire();
-            ReleaseNeuroTransmitters();
-            ResetPotential();
         }
     }
 }

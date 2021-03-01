@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "ConsoleSimulation/1.0.0": {
+        "dependencies": {
+          "ArtificalOrganicNeuralNetwork": "1.0.0"
+        },
+        "runtime": {
+          "ConsoleSimulation.dll": {}
+        }
+      },
+      "ArtificalOrganicNeuralNetwork/1.0.0": {
+        "runtime": {
+          "ArtificalOrganicNeuralNetwork.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "ConsoleSimulation/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ArtificalOrganicNeuralNetwork/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
