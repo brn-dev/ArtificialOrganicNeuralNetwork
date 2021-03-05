@@ -23,5 +23,22 @@ namespace AONN.NN.Neurons
         {
             OnFire();
         }
+
+        public static OutputNeuron[] Times(
+            int times,
+            string baseId, 
+            NeuralNetworkConfig config, 
+            Action onFire
+            )
+        {
+            var neurons = new OutputNeuron[times];
+
+            for (int i = 0; i < times; i++)
+            {
+                neurons[i] = new OutputNeuron($"{baseId}/{i}", config, onFire);
+            }
+
+            return neurons;
+        }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace ConsoleSimulation
 {
-    class World
+    public class World
     {
         public IList<IConsoleEntity> Entities { get; set; } = new List<IConsoleEntity>();
 

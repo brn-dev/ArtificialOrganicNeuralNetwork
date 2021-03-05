@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AONN.NN;
+using System;
+using System.Threading;
 
 namespace ConsoleSimulation
 {
@@ -19,18 +21,30 @@ namespace ConsoleSimulation
 
         private readonly World _world;
         private readonly ConsoleOrganism _subject;
+        private readonly NeuralNetworkCreationConfig _config;
 
         public Renderer(World world, ConsoleOrganism subject)
         {
             _world = world;
             _subject = subject;
+            _config = (NeuralNetworkCreationConfig) subject.Config;
         }
 
-        public void RenderNow(long tick, int creationSeed, int seed)
+        public void RenderAtFps(int fps)
+        {
+            var millisPerFrame = 1000 / fps;
+            while (true)
+            {
+                RenderNow();
+                Thread.Sleep(millisPerFrame);
+            }
+        }
+
+        public void RenderNow()
         {
             Console.SetCursorPosition(0, 0);
-            Console.WriteLine(tick);
-            Console.WriteLine($"cs: {creationSeed}, s: {seed}");
+            Console.WriteLine(_subject.CurrentTick);
+            Console.WriteLine($"cs: {_config.CreationSeed}, s: {_config.Seed}");
             Console.SetCursorPosition(0, 0);
 
             ClearEntityRepresentations();

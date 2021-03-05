@@ -45,6 +45,11 @@ namespace ConsoleSimulation
                 _ => throw new ArgumentException(),
             };
         }
+
+        public static bool IsNextTo(this IConsoleEntity e1, IConsoleEntity e2)
+        {
+            return e1.Position.IsNextTo(e2.Position);
+        }
     }
 
 }

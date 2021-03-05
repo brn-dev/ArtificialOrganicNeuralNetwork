@@ -1,4 +1,6 @@
-﻿namespace ConsoleSimulation
+﻿using System;
+
+namespace ConsoleSimulation
 {
 
     public class Vector2d
@@ -130,6 +132,14 @@
         {
             X = -X;
             Y = -Y;
+        }
+        public bool IsNextTo(Vector2i other)
+        {
+            var sum = X - other.X + Y - other.Y;
+
+            sum = Math.Abs(sum);
+
+            return sum == 1;
         }
 
         public Vector2d ToDouble()

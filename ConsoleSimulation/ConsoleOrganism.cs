@@ -20,6 +20,12 @@ namespace ConsoleSimulation
 
         public Vector2i Position { get; set; } = new Vector2i();
 
+        public World World { get; set; }
+
+        public long CurrentTick { get; set; } = 0L;
+
+        public int FoodCollected { get; set; }
+
         public void AddMomentum(Vector2d m)
         {
             _momentum.Add(m);
@@ -44,7 +50,16 @@ namespace ConsoleSimulation
             {
                 Rotate();
             }
-            
+
+            foreach (var entity in World.Entities)
+            {
+                if (entity.EntityType == EntityType.Food && entity.IsNextTo(this))
+                {
+                    FoodCollected++;
+                }
+            }
+
+            CurrentTick++;
         }
 
         private void Move()

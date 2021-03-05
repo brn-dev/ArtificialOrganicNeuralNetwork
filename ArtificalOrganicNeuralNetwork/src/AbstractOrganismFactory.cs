@@ -10,19 +10,19 @@ namespace AONN
 
         public delegate InputNeuron[] InputNeuronInitializer(T organism, NeuralNetworkConfig config);
 
-        public delegate OutputNeuron[] OutputNeuronsInitializer(T organism, NeuralNetworkConfig config);
+        public delegate OutputNeuron[] OutputNeuronInitializer(T organism, NeuralNetworkConfig config);
 
         protected static T CreateOrganism(
             NeuralNetworkCreationConfig config,
             InputNeuronInitializer inputNeuronInitializer,
-            OutputNeuronsInitializer outputNeuronsInitializer
+            OutputNeuronInitializer outputNeuronsInitializer
             )
         {
             var organism = new T();
 
-            config.InputNeurons = inputNeuronInitializer(organism, config.NeuralNetworkConfig);
+            config.InputNeurons = inputNeuronInitializer(organism, config);
 
-            config.OutputNeurons = outputNeuronsInitializer(organism, config.NeuralNetworkConfig);
+            config.OutputNeurons = outputNeuronsInitializer(organism, config);
 
             organism.NeuralNetwork = NeuralNetworkFactory.CreateNeuralNetwork(config);
 
