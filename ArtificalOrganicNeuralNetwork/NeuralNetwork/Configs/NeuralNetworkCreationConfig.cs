@@ -32,6 +32,8 @@ namespace AONN.NN.Configs
 
         public GaussianConfig SynapseStrength { get; set; }
 
+        public GaussianConfig NeuroTransmittersPerNeuron { get; set; }
+
         public string ToJson()
         {
             var serializer = JsonSerializer.CreateDefault(new JsonSerializerSettings { Formatting = Formatting.Indented });

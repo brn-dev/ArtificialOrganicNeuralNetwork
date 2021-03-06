@@ -15,6 +15,8 @@ namespace AONN.NN.Neurons
 
         public IList<Synapse> Synapses { get; set; }
 
+        public NeuroTransmitterSet NeuroTransmitterSet { get; set; }
+
         public double Potential { get; set; }
 
         public string Id { get; protected set; }

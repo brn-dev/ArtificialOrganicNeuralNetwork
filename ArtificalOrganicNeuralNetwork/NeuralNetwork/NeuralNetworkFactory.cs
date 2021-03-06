@@ -8,11 +8,12 @@ namespace AONN.NN
 {
     public class NeuralNetworkFactory
     {
+
         private const double ZeroStrength = 0.01;
 
         public static NeuralNetwork CreateNeuralNetwork(NeuralNetworkCreationConfig config)
         {
-            var neuroTransmitterSet = new NeuroTransmitterSet(config.NeuroTransmitterCount);
+            var baseSet = new NeuroTransmitterSet(config.NeuroTransmitterCount);
             var computingNeurons = new ComputingNeuron[config.ComputingNeuronCount];
 
 
@@ -21,14 +22,24 @@ namespace AONN.NN
                 computingNeurons[i] = new ComputingNeuron($"C{i}", config);
             }
 
+            foreach (var neuron in config.InputNeurons)
+            {
+                CreateNeuroTransmitterSetFor(neuron, baseSet, config);
+            }
+
+            foreach (var neuron in computingNeurons)
+            {
+                CreateNeuroTransmitterSetFor(neuron, baseSet, config);
+            }
+
             var receivingNeurons =
                 computingNeurons.Cast<IReceivingNeuron>().Concat(config.OutputNeurons.Cast<IReceivingNeuron>()).ToArray();
+
 
             for (int i = 0; i < config.ComputingNeuronCount; i++)
             {
                 CreateRandomSynapses(
                     config, 
-                    neuroTransmitterSet, 
                     computingNeurons[i], 
                     receivingNeurons
                 );
@@ -38,7 +49,6 @@ namespace AONN.NN
             {
                 CreateRandomSynapses(
                     config, 
-                    neuroTransmitterSet, 
                     config.InputNeurons[i], 
                     receivingNeurons
                 );
@@ -48,9 +58,17 @@ namespace AONN.NN
             return new NeuralNetwork(config, computingNeurons, config.InputNeurons, config.OutputNeurons);
         }
 
+        private static void CreateNeuroTransmitterSetFor(INeuron neuron, NeuroTransmitterSet baseSet, NeuralNetworkCreationConfig config)
+        {
+            var transmitterCount = (int)Math.Round(RandomGaussian(config.CreationRand, config.NeuroTransmittersPerNeuron));
+
+            var subSet = baseSet.RandomSubSet(config.CreationRand, transmitterCount);
+
+            neuron.NeuroTransmitterSet = subSet;
+        }
+
         private static void CreateRandomSynapses(
             NeuralNetworkCreationConfig config, 
-            NeuroTransmitterSet neuroTransmitterSet,
             INeuron neuron, 
             IReceivingNeuron[] receivingNeurons
         )
@@ -62,7 +80,7 @@ namespace AONN.NN
             for (int i = 0; i < count; i++)
             {
                 var receivingNeuron = receivingNeurons[config.CreationRand.Next(receivingNeuronsCount)];
-                var transmitterAffinities = CreateRandomTransmitterAffinities(config, neuroTransmitterSet);
+                var transmitterAffinities = CreateRandomTransmitterAffinities(config, neuron.NeuroTransmitterSet);
                 var strength = RandomGaussian(config.CreationRand, config.SynapseStrength);
                 if (strength < ZeroStrength)
                 {

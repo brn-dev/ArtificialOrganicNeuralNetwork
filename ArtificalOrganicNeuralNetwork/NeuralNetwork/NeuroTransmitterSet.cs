@@ -5,13 +5,14 @@ namespace AONN.NN
 {
     public class NeuroTransmitterSet
     {
-
-        private readonly int _transmitterCount;
-
         public NeuroTransmitterSet(int transmitterCount)
         {
-            _transmitterCount = transmitterCount;
-            GenerateTransmitters();
+            GenerateTransmitters(transmitterCount);
+        }
+
+        public NeuroTransmitterSet(NeuroTransmitter[] neuroTransmitters)
+        {
+            Transmitters = (NeuroTransmitter[])neuroTransmitters.Clone();
         }
 
         public NeuroTransmitter[] Transmitters { get; private set; }
@@ -21,10 +22,41 @@ namespace AONN.NN
             return Transmitters.FirstOrDefault(t => t.Id == id);
         }
 
-        private void GenerateTransmitters()
+        public NeuroTransmitterSet RandomSubSet(Random rand, int size)
         {
-            Transmitters = new NeuroTransmitter[_transmitterCount];
-            for (int i = 0; i < _transmitterCount; i++)
+            if (size > Transmitters.Length)
+            {
+                size = Transmitters.Length;
+            } 
+            else if (size == Transmitters.Length)
+            {
+                return new NeuroTransmitterSet(Transmitters);
+            } 
+            else if (size < 1)
+            {
+                throw new ArgumentException("Size must be greather than 0!");
+            }
+
+            var subSet = new NeuroTransmitter[size];
+
+            var transmitters = Transmitters.ToList();
+
+            for (int i = 0; i < size; i++)
+            {
+                var randIdx = rand.Next(0, size);
+
+                subSet[i] = transmitters[randIdx];
+
+                transmitters.RemoveAt(randIdx);
+            }
+
+            return new NeuroTransmitterSet(subSet);
+        }
+
+        private void GenerateTransmitters(int transmitterCount)
+        {
+            Transmitters = new NeuroTransmitter[transmitterCount];
+            for (int i = 0; i < transmitterCount; i++)
             {
                 Transmitters[i] = new NeuroTransmitter(i);
             }

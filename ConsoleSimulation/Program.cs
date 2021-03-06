@@ -57,6 +57,7 @@ namespace ConsoleSimulation
                     // creation config
                     ComputingNeuronCount = 10,
                     NeuroTransmitterCount = 1,
+                    NeuroTransmittersPerNeuron = new GaussianConfig(6, 0.4, 1),
                     SynapseCount = new GaussianConfig(5, 10, 0),
                     SynapseStrength = new GaussianConfig(10, 8, 0.01)
                 };

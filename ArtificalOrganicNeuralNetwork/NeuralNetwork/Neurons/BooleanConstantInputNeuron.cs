@@ -7,8 +7,13 @@ namespace AONN.NN.Neurons
     public class BooleanConstantInputNeuron : InputNeuron
     {
 
-        public BooleanConstantInputNeuron(string id, NeuralNetworkConfig config, double potentialPerTick, Predicate shouldReceivePotential) :
-            base(
+        public BooleanConstantInputNeuron(
+            string id, 
+            NeuralNetworkConfig config, 
+            double potentialPerTick, 
+            Predicate shouldReceivePotential
+            ) 
+            : base (
                 id,
                 config, 
                 (_base) => { 
