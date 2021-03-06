@@ -3,6 +3,19 @@ using System.Collections.Generic;
 
 namespace AONN.NN
 {
+    public class NeuroTransmitterAffinity
+    {
+        public NeuroTransmitter Transmitter { get; set; }
+
+        public double Affinity { get; set; }
+
+        public NeuroTransmitterAffinity(NeuroTransmitter transmitter, double affinity)
+        {
+            Transmitter = transmitter;
+            Affinity = affinity;
+        }
+    }
+
     public class Synapse
     {
         public double Strength { get; set; }
@@ -11,9 +24,7 @@ namespace AONN.NN
 
         public IReceivingNeuron TargetNeuron { get; set; }
 
-        public IDictionary<NeuroTransmitter, double> SourceAffinities { get; set; }
-
-        public IDictionary<NeuroTransmitter, double> TargetAffinities { get; set; }
+        public NeuroTransmitterAffinity[] TransmitterAffinities { get; set; }
 
         public NeuroTransmitterSet NeuroTransmitterSet { get; set; }
 
@@ -21,24 +32,22 @@ namespace AONN.NN
             double strength, 
             INeuron sourceNeuron, 
             IReceivingNeuron targetNeuron, 
-            IDictionary<NeuroTransmitter, double> sourceAffinities, 
-            IDictionary<NeuroTransmitter, double> targetAffinities, 
+            NeuroTransmitterAffinity[] transmitterAffinities,
             NeuroTransmitterSet neuroTransmitterSet
         ) {
             Strength = strength;
             SourceNeuron = sourceNeuron;
             TargetNeuron = targetNeuron;
-            SourceAffinities = sourceAffinities;
-            TargetAffinities = targetAffinities;
+            TransmitterAffinities = transmitterAffinities;
             NeuroTransmitterSet = neuroTransmitterSet;
         }
 
         public void Transmit()
         {
             var totalPotential = 0.0;
-            foreach (var transmitter in NeuroTransmitterSet.Transmitters)
+            for (int i = 0; i < TransmitterAffinities.Length; i++)
             {
-                totalPotential += Strength * SourceAffinities[transmitter] * TargetAffinities[transmitter];
+                totalPotential += Strength * TransmitterAffinities[i].Affinity;
             }
             TargetNeuron.ReceivePotential(totalPotential);
         }

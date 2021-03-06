@@ -61,8 +61,7 @@ namespace AONN.NN
             for (int i = 0; i < count; i++)
             {
                 var receivingNeuron = receivingNeurons[config.CreationRand.Next(receivingNeuronsCount)];
-                var sourceAffinities = CreateRandomTransmitterAffinities(config, neuroTransmitterSet);
-                var targetAffinities = CreateRandomTransmitterAffinities(config, neuroTransmitterSet);
+                var transmitterAffinities = CreateRandomTransmitterAffinities(config, neuroTransmitterSet);
                 var strength = RandomGaussian(config.CreationRand, config.SynapseStrengthMean, config.SynapseStrengthStdDev);
                 if (strength < ZeroStrength)
                 {
@@ -70,8 +69,9 @@ namespace AONN.NN
                 }
                 var synapse = new Synapse(
                     strength, 
-                    neuron, receivingNeuron, 
-                    sourceAffinities, targetAffinities,
+                    neuron, 
+                    receivingNeuron, 
+                    transmitterAffinities,
                     neuroTransmitterSet
                     );
                 synapses.Add(synapse);
@@ -80,16 +80,29 @@ namespace AONN.NN
             neuron.Synapses = synapses;
         }
 
-        private static IDictionary<NeuroTransmitter, double> CreateRandomTransmitterAffinities(NeuralNetworkCreationConfig config, NeuroTransmitterSet neuroTransmitterSet)
+        private static NeuroTransmitterAffinity[] CreateRandomTransmitterAffinities(NeuralNetworkCreationConfig config, NeuroTransmitterSet neuroTransmitterSet)
         {
-            var affinities = new Dictionary<NeuroTransmitter, double>();
+            var affinities = new NeuroTransmitterAffinity[neuroTransmitterSet.Transmitters.Length];
 
-            foreach (var transmitter in neuroTransmitterSet.Transmitters)
+            for (int i = 0; i < neuroTransmitterSet.Transmitters.Length; i++)
             {
-                affinities[transmitter] = config.CreationRand.NextDouble();
+                affinities[i] = new NeuroTransmitterAffinity(neuroTransmitterSet.Transmitters[i], config.CreationRand.NextDouble());
             }
 
             return affinities;
+        }
+
+        // TODO: Use this with proper min
+        private static double RandomGaussianWithMinimum(Random rand, double mean, double stdDev, double min)
+        {
+            var gaussian = RandomGaussian(rand, mean, stdDev);
+
+            if (gaussian < min)
+            {
+                gaussian = min;
+            }
+
+            return gaussian;
         }
 
         private static double RandomGaussian(Random rand, double mean, double stdDev)

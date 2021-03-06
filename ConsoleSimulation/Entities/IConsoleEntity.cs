@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ConsoleSimulation
+namespace ConsoleSimulation.Entities
 {
 
     public interface IConsoleEntity
@@ -11,13 +11,13 @@ namespace ConsoleSimulation
 
         public EntityType EntityType { get; }
 
-        public ConsoleRepresentation Representation { get; }
+        public IConsoleRepresentation Representation { get; }
 
     }
 
     public static class IConsoleEntityHelper
     {
-        public static char GetCurrentRepresentation(this IConsoleEntity consoleEntity)
+        public static ColoredChar GetCurrentRepresentation(this IConsoleEntity consoleEntity)
         {
             return consoleEntity.Representation.OfDirection(consoleEntity.Rotation);
         }

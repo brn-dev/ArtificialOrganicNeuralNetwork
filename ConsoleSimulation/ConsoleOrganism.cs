@@ -1,11 +1,12 @@
 ﻿using AONN;
+using ConsoleSimulation.Entities;
 
 namespace ConsoleSimulation
 {
-    public class ConsoleOrganism : AbstractOrganism, IConsoleEntity
+    public class ConsoleOrganism : AbstractOrganism, ITickableConsoleEntity
     {
         /// momentum relative to the organisms rotation, momentum is rotated if organsim rotates
-        private Vector2d _momentum = new Vector2d();
+        private readonly Vector2d _momentum = new Vector2d();
         private double _angularMomementum = 0;
 
         public ConsoleOrganism()
@@ -14,7 +15,7 @@ namespace ConsoleSimulation
 
         public EntityType EntityType { get; } = EntityType.Subject;
 
-        public ConsoleRepresentation Representation { get; } = new ConsoleRepresentation('^', 'v', '<', '>');
+        public IConsoleRepresentation Representation { get; } = new DirectionalConsoleRepresentation('^', 'v', '<', '>');
 
         public Direction Rotation { get; set; } = Direction.Up;
 
@@ -38,6 +39,8 @@ namespace ConsoleSimulation
 
         public override void Tick(long tick)
         {
+            CurrentTick = tick;
+
             base.Tick(tick);
 
             if (_momentum.X >= 1 || _momentum.X <= -1 || 
@@ -53,13 +56,13 @@ namespace ConsoleSimulation
 
             foreach (var entity in World.Entities)
             {
-                if (entity.EntityType == EntityType.Food && entity.IsNextTo(this))
+                if (entity is FoodEntity foodEntity && foodEntity.IsNextTo(this) && !foodEntity.IsEaten)
                 {
                     FoodCollected++;
+                    //World.RemoveEntity(entity);
+                    ((FoodEntity)entity).Eat();
                 }
             }
-
-            CurrentTick++;
         }
 
         private void Move()

@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "0G+HBz7tTU7hApM1XtkmjKYmj2hgdwlSBo83AJejsw4z3BvNSFg3h0Mn/WpzFFn+f5Hsi7YTcZj99aznKY/lpA==",
+  "dgSpecHash": "9j8tB+4eWbf3EATsv97cZVu6USahdNAMSnJi+zBslpjl4SFl75Ym2LR61qM3tLrIxMkH+SJB4nNpnIM4EtoLlA==",
   "success": true,
   "projectFilePath": "C:\\Users\\domin\\Git\\ArtificialOrganicNeuralNetwork\\ConsoleSimulation\\ConsoleSimulation.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\domin\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+  ],
   "logs": []
 }

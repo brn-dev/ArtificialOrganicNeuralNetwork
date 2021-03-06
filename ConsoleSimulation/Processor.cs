@@ -1,10 +1,5 @@
 ﻿using AONN.NN;
-using AONN.NN.Neurons;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ConsoleSimulation
@@ -13,11 +8,14 @@ namespace ConsoleSimulation
     {
         public delegate NeuralNetworkCreationConfig ConfigProvider();
 
+        public delegate World WorldProvider();
+
         public static (Task[] tasks, ConsoleOrganism[] subjects) ProcessMultiple(
             int times,
             ConfigProvider configProvider,
             ConsoleOrganismFactory.InputNeuronInitializer inputNeuronInitializer,
             ConsoleOrganismFactory.OutputNeuronInitializer outputNeuronsInitializer,
+            WorldProvider worldProvider,
             long maxTicks
             )
         {
@@ -30,6 +28,7 @@ namespace ConsoleSimulation
                     configProvider(), 
                     inputNeuronInitializer, 
                     outputNeuronsInitializer, 
+                    worldProvider,
                     maxTicks
                     );
 
@@ -44,10 +43,11 @@ namespace ConsoleSimulation
             NeuralNetworkCreationConfig config,
             ConsoleOrganismFactory.InputNeuronInitializer inputNeuronInitializer,
             ConsoleOrganismFactory.OutputNeuronInitializer outputNeuronsInitializer,
+            WorldProvider worldProvider,
             long maxTicks
             )
         {
-            var subject = CreateSubjectWithWorld(config, inputNeuronInitializer, outputNeuronsInitializer);
+            var subject = CreateSubjectWithWorld(config, inputNeuronInitializer, outputNeuronsInitializer, worldProvider);
 
             var task = Task.Factory.StartNew(() =>
                 {
@@ -55,7 +55,7 @@ namespace ConsoleSimulation
 
                     while (tick < maxTicks)
                     {
-                        subject.Tick(tick);
+                        subject.World.Tick(tick);
                         tick++;
                     }
 
@@ -69,11 +69,12 @@ namespace ConsoleSimulation
             NeuralNetworkCreationConfig config,
             ConsoleOrganismFactory.InputNeuronInitializer inputNeuronInitializer,
             ConsoleOrganismFactory.OutputNeuronInitializer outputNeuronsInitializer,
+            WorldProvider worldProvider,
             long maxTicks,
             long ticksPerSecond
             )
         {
-            var subject = CreateSubjectWithWorld(config, inputNeuronInitializer, outputNeuronsInitializer);
+            var subject = CreateSubjectWithWorld(config, inputNeuronInitializer, outputNeuronsInitializer, worldProvider);
 
             var task = Task.Factory.StartNew(() =>
             {
@@ -89,7 +90,7 @@ namespace ConsoleSimulation
                     if (stopwatch.ElapsedMilliseconds >= lastTickMillis + millisPerTick)
                     {
                         lastTickMillis = stopwatch.ElapsedMilliseconds;
-                        subject.Tick(tick);
+                        subject.World.Tick(tick);
                         tick++;
                     }
                 }
@@ -102,10 +103,11 @@ namespace ConsoleSimulation
         private static ConsoleOrganism CreateSubjectWithWorld(
             NeuralNetworkCreationConfig config,
             ConsoleOrganismFactory.InputNeuronInitializer inputNeuronInitializer,
-            ConsoleOrganismFactory.OutputNeuronInitializer outputNeuronsInitializer
+            ConsoleOrganismFactory.OutputNeuronInitializer outputNeuronsInitializer,
+            WorldProvider worldProvider
             )
         {
-            var world = new World();
+            var world = worldProvider();
 
             var subject = ConsoleOrganismFactory.CreateConsoleOrgansim(
                 world,
@@ -114,7 +116,7 @@ namespace ConsoleSimulation
                 outputNeuronsInitializer
             );
 
-            world.Entities.Add(subject);
+            world.AddEntity(subject);
 
             return subject;
         }

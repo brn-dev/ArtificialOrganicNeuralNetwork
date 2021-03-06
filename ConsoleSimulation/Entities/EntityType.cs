@@ -1,4 +1,4 @@
-﻿namespace ConsoleSimulation
+﻿namespace ConsoleSimulation.Entities
 {
     public enum EntityType
     {

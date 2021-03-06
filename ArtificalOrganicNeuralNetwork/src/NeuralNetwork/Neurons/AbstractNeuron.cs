@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace AONN.NN.Neurons
 {
@@ -31,7 +30,7 @@ namespace AONN.NN.Neurons
         public void PostTick()
         {
             Potential += _tempPotential;
-            _tempPotential = 0;
+            _tempPotential = 0; 
             LoosePotential();
         }
 
@@ -40,7 +39,7 @@ namespace AONN.NN.Neurons
             var likeliness = GetImpulseLikeliness();
             var r = Config.Rand.NextDouble();
 
-            return r >= 1 - likeliness;
+            return r <= likeliness;
         }
 
         protected virtual void LoosePotential()
@@ -50,9 +49,10 @@ namespace AONN.NN.Neurons
 
         protected virtual void ReleaseNeuroTransmitters()
         {
-            foreach (var synapse in Synapses)
+            var length = Synapses.Count;
+            for (int i = 0; i < length; i++)
             {
-                synapse.Transmit();
+                Synapses[i].Transmit();
             }
         }
 

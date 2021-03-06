@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "KgVRVsQSwaUngtTmesMEU7YQj2Ksm0BacJENwZhP+gcjMoiti4XmI8ENRPm61skiwPFT8KLr7ozpYHvcdDmZAg==",
+  "dgSpecHash": "ZNh1fK8JE+oWTKEv95SsWnh7qkSWz+gZEl1UNCRK6MFu3QmTIlGbbIU+ZSsDkrDtwoo6mRrS8rsSg6K97PIRqg==",
   "success": true,
   "projectFilePath": "C:\\Users\\domin\\Git\\ArtificialOrganicNeuralNetwork\\ArtificalOrganicNeuralNetwork\\ArtificalOrganicNeuralNetwork.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\domin\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
-    "C:\\Users\\domin\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+    "C:\\Users\\domin\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
+    "C:\\Users\\domin\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
   ],
   "logs": []
 }

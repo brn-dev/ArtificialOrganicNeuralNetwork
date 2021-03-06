@@ -3,6 +3,7 @@ using AONN.NN.Neurons;
 using System;
 using System.Threading;
 using System.Linq;
+using ConsoleSimulation.Entities;
 
 namespace ConsoleSimulation
 {
@@ -10,13 +11,14 @@ namespace ConsoleSimulation
     {
         delegate int SeedProvider();
 
-
         private const bool _simulateSingle = true;
+        private const bool _printConfigOfSingle = true;
 
-        private const int _creationSeed = 1810860249;
-        private const int _seed = 612640322;
+        private const int _creationSeed = 1478597184;
+        private const int _seed = -680533558;
 
         private const int _threadCount = 20;
+
         private const int _maxTicks = 10000;
 
         private const long _ticksPerSecond = 1000;
@@ -41,7 +43,7 @@ namespace ConsoleSimulation
             }
 
 
-            Processor.ConfigProvider configInitializer =
+            Processor.ConfigProvider configProvider =
                 () => new NeuralNetworkCreationConfig(creationSeedProvider(), seedProvider())
                 {
                     // runtime config
@@ -53,9 +55,9 @@ namespace ConsoleSimulation
                     // creation config
                     ComputingNeuronCount = 10,
                     SynapseCountMean = 5,
-                    SynapseCountStdDev = 0.5,
+                    SynapseCountStdDev = 10,
                     SynapseStrengthMean = 10,
-                    SynapseStrengthStdDev = 3
+                    SynapseStrengthStdDev = 8
                 };
 
             ConsoleOrganismFactory.InputNeuronInitializer inputNeuronInitializer =
@@ -74,76 +76,122 @@ namespace ConsoleSimulation
                         .Concat(OutputNeuron.Times(3, "O-L", c, () => o.AddAngularMomentum(-0.01)))
                         .ToArray();
 
+            Processor.WorldProvider worldProvider =
+                () =>
+                {
+                    var world = new World();
+
+                    world.AddEntity(new FoodEntity(new Vector2i(0, 3)));
+
+                    return world;
+                };
+
             if (_simulateSingle)
             {
-                SimulateSingle(configInitializer, inputNeuronInitializer, outputNeuronInitializer);
+                SimulateSingle(configProvider, inputNeuronInitializer, outputNeuronInitializer, worldProvider);
             }
             else
             {
-                SimulateMultiple(configInitializer, inputNeuronInitializer, outputNeuronInitializer);
+                SimulateMultiple(configProvider, inputNeuronInitializer, outputNeuronInitializer, worldProvider);
             }
         }
 
         private static void SimulateMultiple(
             Processor.ConfigProvider configInitializer,
             ConsoleOrganismFactory.InputNeuronInitializer inputNeuronInitializer,
-            ConsoleOrganismFactory.OutputNeuronInitializer outputNeuronInitializer)
+            ConsoleOrganismFactory.OutputNeuronInitializer outputNeuronInitializer,
+            Processor.WorldProvider worldProvider)
         {
-            var previousDone = -1;
 
-            var (tasks, subjects) = Processor.ProcessMultiple(_threadCount, configInitializer, inputNeuronInitializer, outputNeuronInitializer, _maxTicks);
-
+            Console.WriteLine(int.MaxValue.ToString().Length);
             while (true)
             {
-                //renderer.RenderNow(tick, config.CreationSeed, config.NeuralNetworkConfig.Seed);
-                var done = tasks.Count(t => t.IsCompleted);
-                if (done > previousDone)
-                {
-                    Console.WriteLine($"{done} / {_threadCount}");
-                    previousDone = done;
-                }
+                var previousDone = -1;
 
-                if (done == _threadCount)
+                var (tasks, subjects) = Processor.ProcessMultiple(
+                    _threadCount,
+                    configInitializer,
+                    inputNeuronInitializer,
+                    outputNeuronInitializer,
+                    worldProvider,
+                    _maxTicks
+                    );
+
+                while (true)
                 {
-                    foreach (var subject in subjects)
+                    //renderer.RenderNow(tick, config.CreationSeed, config.NeuralNetworkConfig.Seed);
+                    var done = tasks.Count(t => t.IsCompleted);
+                    if (done > previousDone)
                     {
-                        var config = (NeuralNetworkCreationConfig)subject.Config;
-                        Console.WriteLine($"{config.CreationSeed}/{config.Seed}: {subject.FoodCollected}, {DidMove(subject)}");
+                        Console.WriteLine($"{done} / {_threadCount}");
+                        previousDone = done;
                     }
-                    break;
+
+                    if (done == _threadCount)
+                    {
+                        foreach (var subject in subjects)
+                        {
+                            var config = (NeuralNetworkCreationConfig)subject.Config;
+
+                            var creationSeed = PadSeed(config.CreationSeed);
+                            var seed = PadSeed(config.Seed);
+
+                            Console.WriteLine($" {creationSeed} / {seed} : {subject.FoodCollected}, {DidMove(subject)}");
+                        }
+                        break;
+                    }
+
+                    Thread.Sleep(20);
                 }
-
-                Thread.Sleep(20);
             }
-
         }
 
         private static void SimulateSingle(
             Processor.ConfigProvider configInitializer,
             ConsoleOrganismFactory.InputNeuronInitializer inputNeuronInitializer,
-            ConsoleOrganismFactory.OutputNeuronInitializer outputNeuronInitializer
+            ConsoleOrganismFactory.OutputNeuronInitializer outputNeuronInitializer,
+            Processor.WorldProvider worldProvider
             )
         {
             var (task, subject) = Processor.CreateSubjectAndProcessWithLimiter(
                 configInitializer(),
                 inputNeuronInitializer,
                 outputNeuronInitializer,
+                worldProvider,
                 _maxTicks,
                 _ticksPerSecond
                 );
 
             var world = subject.World;
 
-            world.Entities.Add(new FoodEntity(new Vector2i(0, 3)));
+            if (_printConfigOfSingle)
+            {
+                Console.WriteLine(subject.Config.ToString());
+            }
+            else
+            {
+                var renderer = new Renderer(world, subject);
 
-            var renderer = new Renderer(world, subject);
-
-            renderer.RenderAtFps(_fps);
+                renderer.RenderAtFps(_fps);
+            }
         }
 
         private static bool DidMove(ConsoleOrganism consoleOrganism)
         {
             return consoleOrganism.Position.X != 0 || consoleOrganism.Position.Y != 0;
+        }
+
+        private static string PadSeed(int seed)
+        {
+            if (seed >= 0)
+            {
+                var padded = seed.ToString().PadRight(10);
+                return " " + padded;
+            } 
+            else
+            {
+                return seed.ToString().PadRight(11);
+            }
         }
     }
 }

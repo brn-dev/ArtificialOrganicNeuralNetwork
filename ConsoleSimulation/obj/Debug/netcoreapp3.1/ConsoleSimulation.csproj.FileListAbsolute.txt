@@ -14,3 +14,4 @@ C:\Users\domin\Git\ArtificialOrganicNeuralNetwork\ConsoleSimulation\obj\Debug\ne
 C:\Users\domin\Git\ArtificialOrganicNeuralNetwork\ConsoleSimulation\obj\Debug\netcoreapp3.1\ConsoleSimulation.dll
 C:\Users\domin\Git\ArtificialOrganicNeuralNetwork\ConsoleSimulation\obj\Debug\netcoreapp3.1\ConsoleSimulation.pdb
 C:\Users\domin\Git\ArtificialOrganicNeuralNetwork\ConsoleSimulation\obj\Debug\netcoreapp3.1\ConsoleSimulation.genruntimeconfig.cache
+C:\Users\domin\Git\ArtificialOrganicNeuralNetwork\ConsoleSimulation\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll

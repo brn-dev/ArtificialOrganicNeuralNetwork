@@ -1,4 +1,5 @@
 ﻿using AONN.NN;
+using ConsoleSimulation.Entities;
 using System;
 using System.Threading;
 
@@ -11,8 +12,8 @@ namespace ConsoleSimulation
         private const int _width = 50;
         private const int _height = 30;
 
-        private const int maxX = _paddingLeft + _width;
-        private const int maxY = _paddingTop + _height;
+        private const int _maxX = _paddingLeft + _width;
+        private const int _maxY = _paddingTop + _height;
 
         private const int _baseX = _paddingLeft + _width / 2;
         private const int _baseY = _paddingTop + _height / 2;
@@ -32,7 +33,9 @@ namespace ConsoleSimulation
 
         public void RenderAtFps(int fps)
         {
+            Console.ForegroundColor = IConsoleRepresentation.DefaultColor;
             var millisPerFrame = 1000 / fps;
+
             while (true)
             {
                 RenderNow();
@@ -71,17 +74,24 @@ namespace ConsoleSimulation
                 var y = _baseY - entity.Position.Y + _subject.Position.Y;
                 
                 if (x >= _paddingLeft 
-                    && x <= maxX
+                    && x <= _maxX
                     && y >= _paddingTop
-                    && y <= maxY)
+                    && y <= _maxY)
                 {
                     Console.SetCursorPosition(x, y);
 
-                    Console.Write(entity.GetCurrentRepresentation());
+                    Write(entity.GetCurrentRepresentation());
                 }
 
             }
             Console.SetCursorPosition(0, 0);
+        }
+
+        private void Write(ColoredChar coloredChar)
+        {
+            Console.ForegroundColor = coloredChar.Color;
+            Console.Write(coloredChar.Char);
+            Console.ForegroundColor = IConsoleRepresentation.DefaultColor;
         }
     }
 }

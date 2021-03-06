@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace AONN.NN
 {
@@ -12,6 +13,7 @@ namespace AONN.NN
 
         public int Seed { get; private set; }
 
+        [JsonIgnore]
         public Random Rand { get; private set; }
 
         public int NeuroTransmitterCount { get; set; }
