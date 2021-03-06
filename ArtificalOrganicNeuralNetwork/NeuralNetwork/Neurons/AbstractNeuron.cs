@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using AONN.NN.Configs;
+using System.Collections.Generic;
 
 namespace AONN.NN.Neurons
 {
@@ -20,7 +21,24 @@ namespace AONN.NN.Neurons
 
         private double _tempPotential = 0;
 
-        public abstract void Tick();
+        public virtual void Tick()
+        {
+            if (ShouldFire())
+            {
+                Fire();
+            }
+        }
+
+        public virtual void SuperTick()
+        {
+            LoosePotential();
+
+            var synapseCount = Synapses.Count;
+            for (int i = 0; i < synapseCount; i++)
+            {
+                Synapses[i].SuperTick();
+            }
+        }
 
         public virtual void ReceivePotential(double potential)
         {
@@ -31,7 +49,6 @@ namespace AONN.NN.Neurons
         {
             Potential += _tempPotential;
             _tempPotential = 0; 
-            LoosePotential();
         }
 
         protected virtual bool ShouldFire()
@@ -44,7 +61,7 @@ namespace AONN.NN.Neurons
 
         protected virtual void LoosePotential()
         {
-            Potential *= Config.PotentialLossPerTick;
+            Potential *= Config.PotentialLossPerSuperTick;
         }
 
         protected virtual void ReleaseNeuroTransmitters()

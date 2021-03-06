@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AONN.NN.Configs;
 using AONN.NN.Neurons;
 
 namespace AONN.NN
@@ -54,7 +55,7 @@ namespace AONN.NN
             IReceivingNeuron[] receivingNeurons
         )
         {
-            var count = Math.Round(RandomGaussian(config.CreationRand, config.SynapseCountMean, config.SynapseCountStdDev));
+            var count = Math.Round(RandomGaussian(config.CreationRand, config.SynapseCount));
             var receivingNeuronsCount = receivingNeurons.Length;
             var synapses = new List<Synapse>();
 
@@ -62,7 +63,7 @@ namespace AONN.NN
             {
                 var receivingNeuron = receivingNeurons[config.CreationRand.Next(receivingNeuronsCount)];
                 var transmitterAffinities = CreateRandomTransmitterAffinities(config, neuroTransmitterSet);
-                var strength = RandomGaussian(config.CreationRand, config.SynapseStrengthMean, config.SynapseStrengthStdDev);
+                var strength = RandomGaussian(config.CreationRand, config.SynapseStrength);
                 if (strength < ZeroStrength)
                 {
                     strength = ZeroStrength;
@@ -72,7 +73,7 @@ namespace AONN.NN
                     neuron, 
                     receivingNeuron, 
                     transmitterAffinities,
-                    neuroTransmitterSet
+                    config
                     );
                 synapses.Add(synapse);
             }
@@ -92,26 +93,18 @@ namespace AONN.NN
             return affinities;
         }
 
-        // TODO: Use this with proper min
-        private static double RandomGaussianWithMinimum(Random rand, double mean, double stdDev, double min)
-        {
-            var gaussian = RandomGaussian(rand, mean, stdDev);
-
-            if (gaussian < min)
-            {
-                gaussian = min;
-            }
-
-            return gaussian;
-        }
-
-        private static double RandomGaussian(Random rand, double mean, double stdDev)
+        private static double RandomGaussian(Random rand, GaussianConfig gaussianConfig)
         {
             double u1 = 1.0 - rand.NextDouble(); //uniform(0,1] random doubles
             double u2 = 1.0 - rand.NextDouble();
             double randStdNormal = Math.Sqrt(-2.0 * Math.Log(u1)) *
                                    Math.Sin(2.0 * Math.PI * u2); //random normal(0,1)
-            double randNormal = mean + stdDev * randStdNormal; //random normal(mean,stdDev^2)
+            double randNormal = gaussianConfig.Mean + gaussianConfig.StdDev * randStdNormal; //random normal(mean,stdDev^2)
+
+            if (randNormal < gaussianConfig.Min)
+            {
+                randNormal = gaussianConfig.Min;
+            }
 
             return randNormal;
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AONN.NN.Configs;
+using System;
 
 namespace AONN.NN.Neurons
 {

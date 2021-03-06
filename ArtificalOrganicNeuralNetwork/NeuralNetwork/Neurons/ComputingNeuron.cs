@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AONN.NN.Configs;
+using System;
 
 namespace AONN.NN.Neurons
 {
@@ -7,14 +8,6 @@ namespace AONN.NN.Neurons
 
         public ComputingNeuron(string id, NeuralNetworkConfig config) : base(id, config)
         {
-        }
-
-        public override void Tick()
-        {
-            if (ShouldFire())
-            {
-                Fire();
-            }
         }
     }
 }

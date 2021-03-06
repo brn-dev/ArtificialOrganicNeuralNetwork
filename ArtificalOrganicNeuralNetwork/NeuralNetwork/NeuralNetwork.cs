@@ -1,4 +1,5 @@
-﻿using AONN.NN.Neurons;
+﻿using AONN.NN.Configs;
+using AONN.NN.Neurons;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -30,15 +31,25 @@ namespace AONN.NN
             AllNeurons = computingNeurons.Cast<INeuron>().Concat(inputNeurons.Cast<INeuron>()).Concat(outputNeurons.Cast<INeuron>()).ToArray();
         }
 
-        public void Tick()
+        public void Tick(long tick)
         {
-            for (int i = 0; i < AllNeurons.Length; i++)
+            var neuronCount = AllNeurons.Length;
+
+            for (int i = 0; i < neuronCount; i++)
             {
                 AllNeurons[i].Tick();
             }
-            for (int i = 0; i < AllNeurons.Length; i++)
+            for (int i = 0; i < neuronCount; i++)
             {
                 AllNeurons[i].PostTick();
+            }
+
+            if (tick % Config.TicksPerSuperTick == 0)
+            {
+                for (int i = 0; i < neuronCount; i++)
+                {
+                    AllNeurons[i].SuperTick();
+                }
             }
         }
     }

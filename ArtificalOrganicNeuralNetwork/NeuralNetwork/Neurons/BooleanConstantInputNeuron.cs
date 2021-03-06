@@ -1,4 +1,6 @@
-﻿namespace AONN.NN.Neurons
+﻿using AONN.NN.Configs;
+
+namespace AONN.NN.Neurons
 {
     public delegate bool Predicate();
 

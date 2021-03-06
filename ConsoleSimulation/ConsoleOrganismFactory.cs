@@ -1,5 +1,6 @@
 ﻿using AONN;
 using AONN.NN;
+using AONN.NN.Configs;
 
 namespace ConsoleSimulation
 {

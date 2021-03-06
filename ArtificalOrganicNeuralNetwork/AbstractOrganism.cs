@@ -1,4 +1,5 @@
 ﻿using AONN.NN;
+using AONN.NN.Configs;
 
 namespace AONN
 {
@@ -10,7 +11,7 @@ namespace AONN
 
         public virtual void Tick(long tick)
         {
-            NeuralNetwork.Tick();
+            NeuralNetwork.Tick(tick);
         }
     }
 }

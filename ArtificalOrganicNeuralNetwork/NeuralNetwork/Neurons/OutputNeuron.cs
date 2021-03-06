@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AONN.NN.Configs;
+using System;
 
 namespace AONN.NN.Neurons
 {
@@ -11,17 +12,14 @@ namespace AONN.NN.Neurons
 
         public Action OnFire { get; set; }
 
-        public override void Tick()
-        {
-            if (ShouldFire())
-            {
-                Fire();
-            }
-        }
-
         protected override void ReleaseNeuroTransmitters()
         {
             OnFire();
+        }
+
+        public override void SuperTick()
+        {
+            LoosePotential();
         }
 
         public static OutputNeuron[] Times(

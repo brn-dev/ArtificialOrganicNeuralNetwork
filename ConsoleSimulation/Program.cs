@@ -1,4 +1,4 @@
-﻿using AONN.NN;
+﻿using AONN.NN.Configs;
 using AONN.NN.Neurons;
 using System;
 using System.Threading;
@@ -12,7 +12,7 @@ namespace ConsoleSimulation
         delegate int SeedProvider();
 
         private const bool _simulateSingle = true;
-        private const bool _printConfigOfSingle = true;
+        private const bool _printConfigOfSingle = false;
 
         private const int _creationSeed = 1478597184;
         private const int _seed = -680533558;
@@ -21,10 +21,10 @@ namespace ConsoleSimulation
 
         private const int _maxTicks = 10000;
 
-        private const long _ticksPerSecond = 1000;
+        private const long _ticksPerSecond = 400;
         private const int _fps = 50;
 
-        static void Main(string[] args)
+        static void Main()
         {
             var r = new Random();
 
@@ -47,24 +47,25 @@ namespace ConsoleSimulation
                 () => new NeuralNetworkCreationConfig(creationSeedProvider(), seedProvider())
                 {
                     // runtime config
-                    NeuroTransmitterCount = 1,
-                    PotentialLossPerTick = 0.999999999999,
+                    TicksPerSuperTick = 10,
+                    PotentialLossPerSuperTick = 0.999999999999,
                     LowerPotentialThreshold = 1,
                     UpperPotentialThreshold = 2,
+                    StrengthGainPerTransmit = 1 + 5E-8,
+                    StrengthLossPerSuperTick = 1 - 5E-10,
 
                     // creation config
                     ComputingNeuronCount = 10,
-                    SynapseCountMean = 5,
-                    SynapseCountStdDev = 10,
-                    SynapseStrengthMean = 10,
-                    SynapseStrengthStdDev = 8
+                    NeuroTransmitterCount = 1,
+                    SynapseCount = new GaussianConfig(5, 10, 0),
+                    SynapseStrength = new GaussianConfig(10, 8, 0.01)
                 };
 
             ConsoleOrganismFactory.InputNeuronInitializer inputNeuronInitializer =
                 (o, c) => new InputNeuron[]
                     {
-                        new BooleanConstantInputNeuron("I1", c, 0.1, () => c.Rand.NextDouble() >= 0.05),
-                        new BooleanConstantInputNeuron("I2", c, 0.1, () => c.Rand.NextDouble() >= 0.5),
+                        new BooleanConstantInputNeuron("I1", c, 0.1, () => true),
+                        new BooleanConstantInputNeuron("I2", c, 0.1, () => true),
                     };
 
             ConsoleOrganismFactory.OutputNeuronInitializer outputNeuronInitializer =

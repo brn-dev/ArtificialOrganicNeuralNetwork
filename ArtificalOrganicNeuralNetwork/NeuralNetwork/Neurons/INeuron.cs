@@ -6,6 +6,7 @@ namespace AONN.NN.Neurons
     {
         void Tick();
         void PostTick();
+        void SuperTick();
         IList<Synapse> Synapses { get; set; }
 
         string Id { get; }

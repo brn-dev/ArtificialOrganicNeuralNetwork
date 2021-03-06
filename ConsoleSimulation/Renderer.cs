@@ -1,4 +1,5 @@
 ﻿using AONN.NN;
+using AONN.NN.Configs;
 using ConsoleSimulation.Entities;
 using System;
 using System.Threading;

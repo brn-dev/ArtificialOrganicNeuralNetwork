@@ -3,7 +3,7 @@ using System.IO;
 using AONN.NN.Neurons;
 using Newtonsoft.Json;
 
-namespace AONN.NN
+namespace AONN.NN.Configs
 {
     public class NeuralNetworkCreationConfig : NeuralNetworkConfig
     {
@@ -26,13 +26,11 @@ namespace AONN.NN
         [JsonIgnore]
         public OutputNeuron[] OutputNeurons { get; set; }
 
-        public double SynapseCountMean { get; set; }
+        public int NeuroTransmitterCount { get; set; }
 
-        public double SynapseCountStdDev { get; set; }
+        public GaussianConfig SynapseCount { get; set; }
 
-        public double SynapseStrengthMean { get; set; }
-
-        public double SynapseStrengthStdDev { get; set; }
+        public GaussianConfig SynapseStrength { get; set; }
 
         public string ToJson()
         {
@@ -40,11 +38,6 @@ namespace AONN.NN
             var stringWriter = new StringWriter();
             serializer.Serialize(stringWriter, this);
             return stringWriter.ToString();
-        }
-
-        public override string ToString()
-        {
-            return ToJson();
         }
 
     }

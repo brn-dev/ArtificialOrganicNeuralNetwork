@@ -1,5 +1,5 @@
-﻿using AONN.NN.Neurons;
-using System.Collections.Generic;
+﻿using AONN.NN.Configs;
+using AONN.NN.Neurons;
 
 namespace AONN.NN
 {
@@ -26,20 +26,20 @@ namespace AONN.NN
 
         public NeuroTransmitterAffinity[] TransmitterAffinities { get; set; }
 
-        public NeuroTransmitterSet NeuroTransmitterSet { get; set; }
+        public NeuralNetworkCreationConfig Config { get; set; }
 
         public Synapse(
             double strength, 
             INeuron sourceNeuron, 
             IReceivingNeuron targetNeuron, 
             NeuroTransmitterAffinity[] transmitterAffinities,
-            NeuroTransmitterSet neuroTransmitterSet
+            NeuralNetworkCreationConfig config
         ) {
             Strength = strength;
             SourceNeuron = sourceNeuron;
             TargetNeuron = targetNeuron;
             TransmitterAffinities = transmitterAffinities;
-            NeuroTransmitterSet = neuroTransmitterSet;
+            Config = config;
         }
 
         public void Transmit()
@@ -50,6 +50,12 @@ namespace AONN.NN
                 totalPotential += Strength * TransmitterAffinities[i].Affinity;
             }
             TargetNeuron.ReceivePotential(totalPotential);
+            Strength *= Config.StrengthGainPerTransmit;
+        }
+
+        public void SuperTick()
+        {
+            Strength *= Config.StrengthGainPerTransmit;
         }
     }
 }
