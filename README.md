@@ -41,6 +41,7 @@ A neuron and its synapses can have 1..n transmitters that it uses to transmit po
 These transmitters are currently doing nothing more than being a weight which influences the potential passed to the receiving neuron. 
 The total potential which gets passed to the receiving neurons is calculated by taking the sum of the products of strength times the synapse-affinity of each neuro-transmitter.  
   
-neuro-transmitters: array of the neuro-transmitters used in the synapse
-neuro-transmitter-affinities: array of doubles, which represent how strong each neuro-transmitter is represented in the synapse.  
+  
+neuro-transmitters: array of the neuro-transmitters used in the synapse  
+neuro-transmitter-affinities: array of doubles, which represent how strong each neuro-transmitter is represented in the synapse  
 PotentialPassedToNextNeuron = Sum(i: 0 -> len(neuro-transmitters), SynapseStrength * neuro-transmitter-affinities[i])
