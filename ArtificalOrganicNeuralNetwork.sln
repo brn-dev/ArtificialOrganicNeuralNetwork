@@ -7,14 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArtificalOrganicNeuralNetwo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleSimulation", "ConsoleSimulation\ConsoleSimulation.csproj", "{880EAC36-DBFB-4D33-A9C0-69D5D6445110}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CF3DE9F2-133F-4F65-AECE-D4D9950ED7FC}"
-	ProjectSection(SolutionItems) = preProject
-		README.md = README.md
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{D5B6A355-D886-481B-888B-4522247AA095}"
 	ProjectSection(SolutionItems) = preProject
-		Description.md = Description.md
+		README.md = README.md
 		ToDo.md = ToDo.md
 	EndProjectSection
 EndProject
